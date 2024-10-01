@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>AURM</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: left;
+            height: 100vh;
+            margin: 20px;
+            font-family: Arial, sans-serif;
+        }
+        .box {
+            width: 345px;
+            height: 284px;
+            background-color: #d9d9d9;
+            margin: 20px 0;
+            border-radius: 30px; /* 모서리를 둥글게 만듦 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .small-title {
+            font-size: 17px;
+            color: #000000;
+            text-align: left;
+            width: 345px;
+            padding-left: 30px;
+        }
+        .big-title {
+            font-size: 30px;
+            color: #000;
+            text-align: left;
+            width: 345px;
+            padding-left: 30px;
+            margin-top: 5px;
+        }
+        .submit-btn {
+            width: 345px;
+            height: 65px; /* 버튼 높이 설정 */
+            background-color: #007aff; /* 버튼 색상 */
+            color: white; /* 글씨 색상 */
+            text-decoration: none; /* 링크의 기본 밑줄 제거 */
+            border-radius: 30px; /* 모서리 둥글게 */
+            cursor: pointer; /* 포인터 커서 */
+            text-align: center; /* 텍스트 중앙 정렬 */
+            font-size: 30px;
+            line-height: 65px;
+        }
+        .container{
+            height: 80px;
+            width: 315px;
+            /*background-color: #ffffff*/;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            flex-direction: column;
+        }
+        .container-s{
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            flex-direction: row;
+            margin-right: 30px;
+        }
+        .bar{
+            height:9px;
+            width: 310px;
+            background-color: #ffffff;
+            border-radius: 30px;
+            margin-top: 15px;
+            position: relative;
+        }
+        .range{
+            height:9px;
+            background-color: #007aff;
+            border-radius: 30px;
+            position: absolute; /* 절대 위치 지정 */
+            top: 0; /* 막대 상단에 위치 */
+            background-color: #007aff;
+        }
+        span {
+            white-space: nowrap;
+            font-size: 10px;
+            color:#ffffff;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="small-title">신촌 연합 토론 동아리 아우름 36기</div>
+    <div class="big-title">제 5회 정기 토론회</div>
+    <div class="box">
+        <div class="container">
+            <div class="container-s">
+                <div class="small-title">토론 + 뒷풀이 참석</div>
+                <span id="text1"></span>
+            </div>
+            <div class="bar">
+                <div class="range" id ="range1"></div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="container-s">
+                <div class="small-title">토론만 참석</div>
+                <span id="text2"></span>
+            </div>
+            <div class="bar">
+                <div class="range" id="range2"></div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="container-s">
+                <div class="small-title">뒷풀이만 참석</div>
+                <span id="text3"></span>
+            </div>
+            <div class="bar">
+                <div class="range" id="range3"></div>
+            </div>
+        </div>
+    </div>
+    <a href="/vote" class="submit-btn">신청하기</a>
+
+    <script>
+        const countOptions = {{ count_options | tojson }};
+        const a = countOptions.option1;  // option1의 카운트를 a에 저장
+        const b = countOptions.option2;
+        const c = countOptions.option3;
+
+        const range1 = document.getElementById('range1');
+        const range2 = document.getElementById('range2');
+        const range3 = document.getElementById('range3');
+
+        range1.style.width = a + '%';  // option1의 비율로 넓이 설정
+        range2.style.width = b + '%';  // option2의 비율로 넓이 설정
+        range3.style.width = c + '%';  // option3의 비율로 넓이 설정
+
+        document.getElementById('text1').innerText = a + '명'; // option1의 값
+        document.getElementById('text2').innerText = b + '명'; // option2의 값
+        document.getElementById('text3').innerText = c + '명'; // option3의 값
+    </script>
+</body>
+</html>

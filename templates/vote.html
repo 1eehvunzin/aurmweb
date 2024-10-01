@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURM</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: left;
+            height: 100vh;
+            margin: 20px;
+            font-family: Arial, sans-serif;
+        }
+        .box {
+            width: 345px;
+            height: 380px;
+            background-color: #d9d9d9;
+            margin: 20px 0;
+            border-radius: 30px; /* 모서리를 둥글게 만듦 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .small-title {
+            font-size: 17px;
+            color: #000000;
+            text-align: left;
+            width: 345px;
+            padding-left: 30px;
+        }
+        .big-title {
+            font-size: 30px;
+            color: #000;
+            text-align: left;
+            width: 345px;
+            padding-left: 30px;
+            margin-top: 5px;
+        }
+        .submit-btn {
+            width: 345px;
+            height: 65px; /* 버튼 높이 설정 */
+            background-color: #007aff; /* 버튼 색상 */
+            color: white; /* 글씨 색상 */
+            text-decoration: none; /* 링크의 기본 밑줄 제거 */
+            border-radius: 30px; /* 모서리 둥글게 */
+            cursor: pointer; /* 포인터 커서 */
+            text-align: center; /* 텍스트 중앙 정렬 */
+            font-size: 30px;
+            line-height: 65px;
+            border: none;
+            outline: none;
+        }
+        .slide-up-panel {
+            position: fixed;
+            bottom: -50%; /* 처음에는 화면 아래에 숨김 */
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background-color: white;
+            border-radius: 30px 30px 0 0;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            transition: bottom 0.5s ease; /* 부드러운 애니메이션 */
+            overflow-y: hidden;
+            display: flex; /* Flexbox 사용 */
+            flex-direction: column; /* 세로 방향으로 정렬 */
+            align-items: center; /* 중앙 정렬 */
+            box-sizing: border-box; /* 패딩 및 테두리를 포함하여 너비 설정 */
+            text-align: left;
+        }
+        .slide-up-panel.show {
+            bottom: 0; /* 화면 위로 패널을 올림 */
+        }
+        .submit-btn-sli {
+            padding: 10px 20px;
+            background-color: #007aff;
+            color: white;
+            border: none;
+            border-radius: 18px;
+            cursor: pointer;
+            font-size: 20px;
+            width: 100%;
+            height: 50px;
+            margin-top: 20px;
+            box-sizing: border-box;
+        }
+        .input-field {
+            width: 100%;
+            height: 50px;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 18px;
+            font-size: 20px;
+            background-color: #d9d9d9;
+            border: none;
+            box-sizing: border-box;
+        }
+        .input-field::placeholder{
+            color: #ffffff;
+        }
+        .input-field:focus {
+            outline: none; /* 기본 outline 제거 */
+            border: 2px solid #007aff; /* 클릭되었을 때의 테두리 색상 변경 */
+        }
+        .title {
+            font-size: 20px;
+            margin: 10px 0;
+            text-align: left;
+            width:100%;
+        }
+        .container{
+            height: 80px;
+            width: 300px;
+            /* background-color: #ffffff; */
+
+        }
+        /* 드롭다운 버튼 스타일 */
+        select {
+            width: 100%;
+            height: 50px;
+            border-radius: 18px;
+            position: relative;
+            display: inline-block;
+            padding-left: 20px;
+            font-size: 20px;
+            background-color: #ffffff;
+            border: 2px solid #ccc;
+        }
+        select:focus {
+            border-color: #007aff; /* 포커스 시 테두리 색상 */
+            outline: none; /* 기본 아웃라인 제거 */
+        }
+        option {
+            width: 100%;
+            height: 25px;
+            border-radius: 18px;
+            position: relative;
+            display: inline-block;
+            padding-left: 20px;
+            font-size: 20px;
+        }
+        .container-s{
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-direction: row;
+            margin-right: 30px;
+        }
+        span {
+            white-space: nowrap;
+            font-size: 10px;
+            color:#ffffff;
+            margin-left: 110px;
+        }
+        .bar{
+            height:9px;
+            width: 310px;
+            background-color: #ffffff;
+            border-radius: 30px;
+            margin-top: 15px;
+            position: relative;
+        }
+        .range{
+            height:9px;
+            background-color: #007aff;
+            border-radius: 30px;
+            position: absolute; /* 절대 위치 지정 */
+            top: 0; /* 막대 상단에 위치 */
+            background-color: #007aff;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="small-title">신촌 연합 토론 동아리 아우름 36기</div>
+    <div class="big-title">제 5회 정기 토론회</div>
+    <form id="voteForm" action="/vote" method="POST">
+        <div class="box">
+            <div class="container">
+                <div class="container-s">
+                    <input type="radio" id="option1" name="vote" value="참석">
+                    <label for="option1">토론 + 뒷풀이 참석</label>
+                    <span id="text1"></span>
+                </div>
+                <div class="bar">
+                    <div class="range" id="range1"></div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="container-s">
+                    <input type="radio" id="option2" name="vote" value="참석">
+                    <label for="option2">토론만 참석</label>
+                    <span id="text2"></span>
+                </div>
+                <div class="bar">
+                    <div class="range" id="range2"></div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="container-s">
+                    <input type="radio" id="option3" name="vote" value="불참">
+                    <label for="option3">뒷풀이만 참석</label>
+                    <span id="text3"></span>
+                </div>
+                <div class="bar">
+                    <div class="range" id="range3"></div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="container-s">
+                    <input type="radio" id="option4" name="vote" value="불참">
+                    <label for="option4">참석 X</label>
+                    <span id="text4"></span>
+                </div>
+                <div class="bar">
+                    <div class="range" id="range4"></div>
+                </div>
+            </div>
+        </div>
+        <button class="submit-btn" id="submitBtn" type="submit">다음으로</button>
+
+        <div id="slideUpPanel" class="slide-up-panel">
+            <div class="title">기수</div>
+            <select id="term" name="term">
+                <option value="YB">YB</option>
+                <option value="OB">OB</option>
+            </select>
+            <div class="title">이름</div>
+            <input type="text" id="name" class="input-field" placeholder="ex ) 김아름" />
+            <button class="submit-btn-sli" id="nextBtn" type="submit">확인</button>
+        </div>
+    </form>
+
+    <script>
+        // 페이지 로드 시 슬라이드업 패널 자동 열기
+        window.onload = function() {
+            document.getElementById('slideUpPanel').classList.add('show');
+        };
+    
+        // '확인' 버튼 클릭 시 슬라이드업 패널 숨기기 및 입력된 값 저장
+        document.getElementById('nextBtn').addEventListener('click', function(event) {
+            event.preventDefault();
+    
+            const term = document.getElementById('term').value; // 기수 입력 필드
+            const name = document.getElementById('name').value; // 이름 입력 필드
+    
+            // 기수와 이름이 입력되었는지 확인
+            if (!term || !name) {
+                alert('기수와 이름을 입력하십시오.');
+            } else { 
+                // 슬라이드업 패널 숨기기
+                document.getElementById('slideUpPanel').classList.remove('show');
+    
+                // '다음으로' 버튼을 활성화시켜 사용자가 이후 폼을 제출할 수 있도록 함
+                document.getElementById('submitBtn').disabled = false;
+            }
+        });
+    
+        // '다음으로' 버튼 클릭 시 선택된 라디오 버튼 확인 및 폼 제출
+        document.getElementById('submitBtn').addEventListener('click', function(event) {
+            event.preventDefault();
+    
+            const vote = document.querySelector('input[name="vote"]:checked');
+            const term = document.getElementById('term').value;
+            const name = document.getElementById('name').value;
+    
+            // 선택된 라디오 버튼이 없는 경우 경고 메시지 표시
+            if (!vote) {
+                alert('항목을 선택해주세요.');
+                return;
+            }
+    
+            // 기수와 이름이 입력되지 않은 경우 경고 메시지 표시
+            if (!term || !name) {
+                alert('기수와 이름을 입력하십시오.');
+                return;
+            }
+
+            // 선택된 라디오 버튼의 id와 value 가져오기
+            const selectedVoteValue = vote.value; // value
+            const selectedVoteId = vote.id; // id
+    
+            // 페이지 전환 없이 폼을 제출하기 위해 hidden 필드 추가
+            const termField = document.createElement('input');
+            termField.type = 'hidden';
+            termField.name = 'term';
+            termField.value = term;
+    
+            const nameField = document.createElement('input');
+            nameField.type = 'hidden';
+            nameField.name = 'name';
+            nameField.value = name;
+
+            // 선택된 라디오 버튼의 value와 id를 hidden 필드로 추가
+            const voteValueField = document.createElement('input');
+            voteValueField.type = 'hidden';
+            voteValueField.name = 'voteValue'; // 서버에서 사용할 필드 이름
+            voteValueField.value = selectedVoteValue; // value 추가
+
+            const voteIdField = document.createElement('input');
+            voteIdField.type = 'hidden';
+            voteIdField.name = 'voteId'; // 서버에서 사용할 필드 이름
+            voteIdField.value = selectedVoteId; // id 추가
+    
+            // 폼에 hidden 필드 추가
+            const form = document.getElementById('voteForm');
+            form.appendChild(termField);
+            form.appendChild(nameField);
+            form.appendChild(voteValueField); // value 추가
+            form.appendChild(voteIdField); // id 추가
+    
+            // 폼 제출
+            form.submit();
+        });
+
+        const countOptions = {{ count_options | tojson }};
+        const a = countOptions.option1;  // option1의 카운트를 a에 저장
+        const b = countOptions.option2;
+        const c = countOptions.option3;
+        const d = countOptions.option4;
+
+        const range1 = document.getElementById('range1');
+        const range2 = document.getElementById('range2');
+        const range3 = document.getElementById('range3');
+        const range4 = document.getElementById('range4');
+
+        range1.style.width = a + '%';  // option1의 비율로 넓이 설정
+        range2.style.width = b + '%';  // option2의 비율로 넓이 설정
+        range3.style.width = c + '%';  // option3의 비율로 넓이 설정
+        range4.style.width = d + '%';  // option4의 비율로 넓이 설정
+
+        document.getElementById('text1').innerText = a + '명'; // option1의 값
+        document.getElementById('text2').innerText = b + '명'; // option2의 값
+        document.getElementById('text3').innerText = c + '명'; // option3의 값
+        document.getElementById('text4').innerText = d + '명'; // option3의 값
+    </script>
+</body>
+</html>
