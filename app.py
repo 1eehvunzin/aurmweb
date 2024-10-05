@@ -10,7 +10,7 @@ scope = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive"
 ]
-creds = ServiceAccountCredentials.from_json_keyfile_name("midyear-system-322103-a997a7e2d11a.json", scope)
+creds = ServiceAccountCredentials.from_json_keyfile_name("your.json", scope)
 client = gspread.authorize(creds)
 spreadsheet = client.open("test")
 
