@@ -14,6 +14,7 @@
             height: 100vh;
             margin: 20px;
             font-family: Arial, sans-serif;
+            font-weight:600;
         }
         .box-s {
             width: 345px;
@@ -78,6 +79,10 @@
         .options{
             padding-top: 13px;
         }
+        .custom-radio {
+            transform: scale(1.5); /* 원하는 크기로 조절 */
+            margin-right: 10px; /* 라디오 버튼과 텍스트 간격 조정 */
+        }
     </style>
 </head>
 <body>
@@ -86,21 +91,21 @@
 
     <form id="opinionForm" action="/opinion" method="POST" >
         <div class="box-s">
-            <div class="title">발제문</div>
+            <div class="title">(발제문)</div>
         </div>
         <div class="box">
             <div class="container">
                 <div class="title">논제 1 : 유명인의 사생활을 보도하는 것을 규제해야한다.</div>
                 <div class="options">
-                    <input type="radio" id="option1" name="vote1" value="찬성">
+                    <input type="radio" class="custom-radio" id="option1" name="vote1" value="찬성">
                     <label for="option1">찬성</label>
                 </div>
                 <div class="options">
-                    <input type="radio" id="option2" name="vote1" value="반대">
+                    <input type="radio" class="custom-radio" id="option2" name="vote1" value="반대">
                     <label for="option2">반대</label>
                 </div>
                 <div class="options">
-                    <input type="radio" id="option3" name="vote1" value="사회자">
+                    <input type="radio" class="custom-radio" id="option3" name="vote1" value="사회자">
                     <label for="option2">사회자</label>
                 </div>
             </div>
@@ -109,15 +114,15 @@
             <div class="container">
                 <div class="title">논제 2 : 착한 사마리아인 법을 도입해야 한다.</div>
                 <div class="options">
-                    <input type="radio" id="option1" name="vote2" value="찬성">
+                    <input type="radio" class="custom-radio" id="option1" name="vote2" value="찬성">
                     <label for="option1">찬성</label>
                 </div>
                 <div class="options">
-                    <input type="radio" id="option2" name="vote2" value="반대">
+                    <input type="radio" class="custom-radio" id="option2" name="vote2" value="반대">
                     <label for="option2">반대</label>
                 </div>
                 <div class="options">
-                    <input type="radio" id="option3" name="vote2" value="사회자">
+                    <input type="radio" class="custom-radio" id="option3" name="vote2" value="사회자">
                     <label for="option2">사회자</label>
                 </div>
             </div>

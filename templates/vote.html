@@ -14,10 +14,11 @@
             height: 100vh;
             margin: 20px;
             font-family: Arial, sans-serif;
+            font-weight:600;
         }
         .box {
             width: 345px;
-            height: 380px;
+            height: 500px;
             background-color: #d9d9d9;
             margin: 20px 0;
             border-radius: 30px; /* 모서리를 둥글게 만듦 */
@@ -25,13 +26,6 @@
             justify-content: center;
             align-items: center;
             flex-direction: column;
-        }
-        .small-title {
-            font-size: 17px;
-            color: #000000;
-            text-align: left;
-            width: 345px;
-            padding-left: 30px;
         }
         .big-title {
             font-size: 30px;
@@ -114,7 +108,8 @@
             width:100%;
         }
         .container{
-            height: 80px;
+            width: 100%;
+            height: 115px;
             width: 300px;
             /* background-color: #ffffff; */
 
@@ -148,15 +143,25 @@
             width: 100%;
             display: flex;
             justify-content: space-between;
+            flex-direction: row;
+            margin-right: 30px;
+            text-align: left;
+        }
+        .container-ss{
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
             align-items: center;
             flex-direction: row;
             margin-right: 30px;
+            text-align: left;
+            white-space: nowrap;
+            padding-left: 15px;
         }
         span {
             white-space: nowrap;
             font-size: 10px;
             color:#ffffff;
-            margin-left: 110px;
         }
         .bar{
             height:9px;
@@ -174,7 +179,44 @@
             top: 0; /* 막대 상단에 위치 */
             background-color: #007aff;
         }
-
+        .custom-radio {
+            transform: scale(1.5); /* 원하는 크기로 조절 */
+        }
+        .small-title {
+            font-size: 17px;
+            color: #000000;
+            text-align: left;
+            width: 345px;
+            padding-left: 30px;
+        }
+        .entiti-box{
+            width: 85px;
+            height: 30px;
+            background-color: #ffffff;
+            border-radius: 30px; /* 모서리를 둥글게 만듦 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin-top: 15px;
+            margin-right: 7px;
+            font-size: 15px;
+        }
+        .entiti-container {
+            width: 100%;
+            display: flex;
+            justify-content: left;
+            flex-direction: row;
+            text-align: left;
+        }
+        .more {
+            border:none;
+            font-size: 10px;
+            color:#007aff;
+            white-space: nowrap;
+            background-color: transparent;
+            margin-top: 30px;
+        }
     </style>
 </head>
 <body>
@@ -184,42 +226,62 @@
         <div class="box">
             <div class="container">
                 <div class="container-s">
-                    <input type="radio" id="option1" name="vote" value="참석">
-                    <label for="option1">토론 + 뒷풀이 참석</label>
-                    <span id="text1"></span>
+                    <input type="radio" class="custom-radio" id="option1" name="vote" value="참석">
+                    <div class="container-ss">
+                        <label for="option1">토론 + 뒷풀이 참석</label>
+                        <span id="text1"></span>
+                    </div>
                 </div>
                 <div class="bar">
                     <div class="range" id="range1"></div>
                 </div>
+                <div class="entiti-container" id="entiti-container1">
+                    <a href="/more1" class="more">더보기 ...</a>
+                </div>
             </div>
             <div class="container">
                 <div class="container-s">
-                    <input type="radio" id="option2" name="vote" value="참석">
-                    <label for="option2">토론만 참석</label>
-                    <span id="text2"></span>
+                    <input type="radio" class="custom-radio" id="option2" name="vote" value="참석">
+                    <div class="container-ss">
+                        <label for="option2">토론만 참석</label>
+                        <span id="text2"></span>
+                    </div>
                 </div>
                 <div class="bar">
                     <div class="range" id="range2"></div>
                 </div>
+                <div class="entiti-container" id="entiti-container2">
+                    <a href="/more2" class="more">더보기 ...</a>
+                </div>
             </div>
             <div class="container">
                 <div class="container-s">
-                    <input type="radio" id="option3" name="vote" value="불참">
-                    <label for="option3">뒷풀이만 참석</label>
-                    <span id="text3"></span>
+                    <input type="radio" class="custom-radio" id="option3" name="vote" value="불참">
+                    <div class="container-ss">
+                        <label for="option3">뒷풀이만 참석</label>
+                        <span id="text3"></span>
+                    </div>
                 </div>
                 <div class="bar">
                     <div class="range" id="range3"></div>
                 </div>
+                <div class="entiti-container" id="entiti-container3">
+                    <a href="/more3" class="more">더보기 ...</a>
+                </div>
             </div>
             <div class="container">
                 <div class="container-s">
-                    <input type="radio" id="option4" name="vote" value="불참">
-                    <label for="option4">참석 X</label>
-                    <span id="text4"></span>
+                    <input type="radio" class="custom-radio" id="option4" name="vote" value="불참">
+                    <div class="container-ss">
+                        <label for="option4">참석 X</label>
+                        <span id="text4"></span>
+                    </div>
                 </div>
                 <div class="bar">
                     <div class="range" id="range4"></div>
+                </div>
+                <div class="entiti-container" id="entiti-container4">
+                    <a href="/more4" class="more">더보기 ...</a>
                 </div>
             </div>
         </div>
@@ -240,28 +302,41 @@
     <script>
         // 페이지 로드 시 슬라이드업 패널 자동 열기
         window.onload = function() {
-            document.getElementById('slideUpPanel').classList.add('show');
-        };
+            const isPanelShown = localStorage.getItem('panelShown');
+            const storedTerm = localStorage.getItem('term');  // 이전에 입력된 기수 정보 확인
+            const storedName = localStorage.getItem('name');  // 이전에 입력된 이름 정보 확인
     
+            if (!isPanelShown) {
+                document.getElementById('slideUpPanel').classList.add('show');
+            }
+        };
+
         // '확인' 버튼 클릭 시 슬라이드업 패널 숨기기 및 입력된 값 저장
         document.getElementById('nextBtn').addEventListener('click', function(event) {
             event.preventDefault();
-    
+
             const term = document.getElementById('term').value; // 기수 입력 필드
             const name = document.getElementById('name').value; // 이름 입력 필드
-    
+
             // 기수와 이름이 입력되었는지 확인
             if (!term || !name) {
                 alert('기수와 이름을 입력하십시오.');
             } else { 
                 // 슬라이드업 패널 숨기기
                 document.getElementById('slideUpPanel').classList.remove('show');
-    
+
+                // 기수와 이름을 로컬 스토리지에 저장
+                localStorage.setItem('term', term);
+                localStorage.setItem('name', name);
+
+                // 슬라이드업 패널이 다시 올라오지 않도록 상태 저장
+                localStorage.setItem('panelShown', 'true');
+
                 // '다음으로' 버튼을 활성화시켜 사용자가 이후 폼을 제출할 수 있도록 함
                 document.getElementById('submitBtn').disabled = false;
             }
         });
-    
+
         // '다음으로' 버튼 클릭 시 선택된 라디오 버튼 확인 및 폼 제출
         document.getElementById('submitBtn').addEventListener('click', function(event) {
             event.preventDefault();
@@ -314,6 +389,9 @@
             form.appendChild(nameField);
             form.appendChild(voteValueField); // value 추가
             form.appendChild(voteIdField); // id 추가
+
+            // *** 슬라이드업 패널 다시 보이도록 설정 ***
+            localStorage.removeItem('panelShown'); // 패널 상태 초기화
     
             // 폼 제출
             form.submit();
@@ -339,6 +417,134 @@
         document.getElementById('text2').innerText = b + '명'; // option2의 값
         document.getElementById('text3').innerText = c + '명'; // option3의 값
         document.getElementById('text4').innerText = d + '명'; // option3의 값
+
+        const container1=document.getElementById('entiti-container1');
+        const container2=document.getElementById('entiti-container2');
+        const container3=document.getElementById('entiti-container3');
+        const container4=document.getElementById('entiti-container4');
+
+        const option1_users = {{ option1_users | tojson }}
+        const option2_users = {{ option2_users | tojson }}
+        const option3_users = {{ option3_users | tojson }}
+        const option4_users = {{ option4_users | tojson }}
+
+        const morebtn1 = container1.querySelector('.more');
+        const morebtn2 = container2.querySelector('.more');
+        const morebtn3 = container3.querySelector('.more');
+        const morebtn4 = container4.querySelector('.more');
+
+        if (a<3) {
+            for (let i = 0; i < a; i++) {
+                const entitiBox = document.createElement('div');  // 새로운 div 요소 생성
+                entitiBox.className = 'entiti-box';  // class 지정
+    
+                // option1_users 배열에서 참석자의 기수와 이름을 가져옵니다.
+                const user = option1_users[i]; // i번째 사용자 정보를 가져옴
+                if (user) {
+                    entitiBox.innerText = `${user.term} ${user.name}`; // 기수와 이름 설정
+                }
+
+                container1.insertBefore(entitiBox, morebtn1);  // container에 추가
+            }
+        }
+        else if (a>=3) {
+            for (let i = 0; i<3; i++) {
+                const entitiBox = document.createElement('div');  // 새로운 div 요소 생성
+                entitiBox.className = 'entiti-box';  // class 지정
+    
+                // option1_users 배열에서 참석자의 기수와 이름을 가져옵니다.
+                const user = option1_users[i]; // i번째 사용자 정보를 가져옴
+                if (user) {
+                    entitiBox.innerText = `${user.term} ${user.name}`; // 기수와 이름 설정
+                }
+
+                container1.insertBefore(entitiBox, morebtn1);  // container에 추가
+            }
+        }
+        if (b<3) {
+            for (let i = 0; i < b; i++) {
+                const entitiBox = document.createElement('div');  // 새로운 div 요소 생성
+                entitiBox.className = 'entiti-box';  // class 지정
+    
+                // option1_users 배열에서 참석자의 기수와 이름을 가져옵니다.
+                const user = option2_users[i]; // i번째 사용자 정보를 가져옴
+                if (user) {
+                    entitiBox.innerText = `${user.term} ${user.name}`; // 기수와 이름 설정
+                }
+
+                container2.insertBefore(entitiBox, morebtn2);  // container에 추가
+            }
+        }
+        else if (b>=3) {
+            for (let i = 0; i<3; i++) {
+                const entitiBox = document.createElement('div');  // 새로운 div 요소 생성
+                entitiBox.className = 'entiti-box';  // class 지정
+    
+                // option1_users 배열에서 참석자의 기수와 이름을 가져옵니다.
+                const user = option2_users[i]; // i번째 사용자 정보를 가져옴
+                if (user) {
+                    entitiBox.innerText = `${user.term} ${user.name}`; // 기수와 이름 설정
+                }
+
+                container2.insertBefore(entitiBox, morebtn2);  // container에 추가
+            }
+        }
+        if (c<3) {
+            for (let i = 0; i < c; i++) {
+                const entitiBox = document.createElement('div');  // 새로운 div 요소 생성
+                entitiBox.className = 'entiti-box';  // class 지정
+    
+                // option1_users 배열에서 참석자의 기수와 이름을 가져옵니다.
+                const user = option3_users[i]; // i번째 사용자 정보를 가져옴
+                if (user) {
+                    entitiBox.innerText = `${user.term} ${user.name}`; // 기수와 이름 설정
+                }
+
+                container3.insertBefore(entitiBox, morebtn3);  // container에 추가
+            }
+        }
+        else if (c>=3) {
+            for (let i = 0; i<3; i++) {
+                const entitiBox = document.createElement('div');  // 새로운 div 요소 생성
+                entitiBox.className = 'entiti-box';  // class 지정
+    
+                // option1_users 배열에서 참석자의 기수와 이름을 가져옵니다.
+                const user = option3_users[i]; // i번째 사용자 정보를 가져옴
+                if (user) {
+                    entitiBox.innerText = `${user.term} ${user.name}`; // 기수와 이름 설정
+                }
+
+                container3.insertBefore(entitiBox, morebtn3);  // container에 추가
+            }
+        }
+        if (d<3) {
+            for (let i = 0; i < d; i++) {
+                const entitiBox = document.createElement('div');  // 새로운 div 요소 생성
+                entitiBox.className = 'entiti-box';  // class 지정
+    
+                // option1_users 배열에서 참석자의 기수와 이름을 가져옵니다.
+                const user = option4_users[i]; // i번째 사용자 정보를 가져옴
+                if (user) {
+                    entitiBox.innerText = `${user.term} ${user.name}`; // 기수와 이름 설정
+                }
+
+                container4.insertBefore(entitiBox, morebtn4);  // container에 추가
+            }
+        }
+        else if (d>=3) {
+            for (let i = 0; i<3; i++) {
+                const entitiBox = document.createElement('div');  // 새로운 div 요소 생성
+                entitiBox.className = 'entiti-box';  // class 지정
+    
+                // option1_users 배열에서 참석자의 기수와 이름을 가져옵니다.
+                const user = option4_users[i]; // i번째 사용자 정보를 가져옴
+                if (user) {
+                    entitiBox.innerText = `${user.term} ${user.name}`; // 기수와 이름 설정
+                }
+
+                container4.insertBefore(entitiBox, morebtn4);  // container에 추가
+            }
+        }
     </script>
 </body>
 </html>

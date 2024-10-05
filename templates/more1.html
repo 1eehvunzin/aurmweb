@@ -9,24 +9,27 @@
         body {
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
             text-align: left;
             height: 100vh;
-            margin: 20px;
+            margin: 50px 20px 20px 20px;
             font-family: Arial, sans-serif;
             font-weight:600;
         }
         .box {
             width: 345px;
-            height: 284px;
+            min-height: 345px;
+            max-height: 620px;
             background-color: #d9d9d9;
             margin: 20px 0;
             border-radius: 30px; /* 모서리를 둥글게 만듦 */
             display: flex;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
             flex-direction: column;
+            padding: 20px 10px;
+            overflow-y:auto ;
         }
         .small-title {
             font-size: 17px;
@@ -67,11 +70,11 @@
         .container-s{
             width: 100%;
             display: flex;
-            justify-content: flex-start;
+            justify-content: center;
             align-items: center;
             flex-direction: row;
-            margin-right: 30px;
             text-align: left;
+            flex-wrap: wrap;
         }
         .bar{
             height:9px;
@@ -94,6 +97,22 @@
             font-size: 10px;
             color:#ffffff;
         }
+        .entiti-box{
+            width: 160px;
+            height: 55px;
+            background-color: #ffffff;
+            border-radius: 30px; /* 모서리를 둥글게 만듦 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: row;
+            margin:5px;
+        }
+        #entiti-container {
+            display: grid;
+            grid-template-columns: repeat(2,1fr);
+            gap:5px;
+        }
 
     </style>
 </head>
@@ -102,52 +121,37 @@
     <div class="big-title">제 5회 정기 토론회</div>
     <div class="box">
         <div class="container">
-            <div class="container-s">
-                <div class="small-title">토론 + 뒷풀이 참석</div>
+            <div class="container-s" style="flex-wrap: nowrap;">
+                <div class="small-title" style="padding:0;">토론 + 뒷풀이 참석</div>
                 <span id="text1"></span>
             </div>
-            <div class="bar">
-                <div class="range" id ="range1"></div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="container-s">
-                <div class="small-title">토론만 참석</div>
-                <span id="text2"></span>
-            </div>
-            <div class="bar">
-                <div class="range" id="range2"></div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="container-s">
-                <div class="small-title">뒷풀이만 참석</div>
-                <span id="text3"></span>
-            </div>
-            <div class="bar">
-                <div class="range" id="range3"></div>
-            </div>
+            <div class="container-s" id="entiti-container"></div>
         </div>
     </div>
-    <a href="/vote" class="submit-btn">신청하기</a>
+    <a href="/vote" class="submit-btn">확인</a>
 
     <script>
         const countOptions = {{ count_options | tojson }};
         const a = countOptions.option1;  // option1의 카운트를 a에 저장
-        const b = countOptions.option2;
-        const c = countOptions.option3;
-
-        const range1 = document.getElementById('range1');
-        const range2 = document.getElementById('range2');
-        const range3 = document.getElementById('range3');
-
-        range1.style.width = a + '%';  // option1의 비율로 넓이 설정
-        range2.style.width = b + '%';  // option2의 비율로 넓이 설정
-        range3.style.width = c + '%';  // option3의 비율로 넓이 설정
-
         document.getElementById('text1').innerText = a + '명'; // option1의 값
-        document.getElementById('text2').innerText = b + '명'; // option2의 값
-        document.getElementById('text3').innerText = c + '명'; // option3의 값
+
+        const container=document.getElementById('entiti-container');
+
+        const option1_users = {{ option1_users | tojson }}
+
+        for (let i = 0; i < a; i++) {
+            const entitiBox = document.createElement('div');  // 새로운 div 요소 생성
+            entitiBox.className = 'entiti-box';  // class 지정
+            
+            // option1_users 배열에서 참석자의 기수와 이름을 가져옵니다.
+            const user = option1_users[i]; // i번째 사용자 정보를 가져옴
+            if (user) {
+                entitiBox.innerText = `${user.term} ${user.name}`; // 기수와 이름 설정
+            }
+
+            container.appendChild(entitiBox);  // container에 추가
+        }
+
     </script>
 </body>
 </html>
