@@ -3,7 +3,7 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
 app = Flask(__name__)
-app.secret_key = 'AURM'
+app.secret_key = 'your_secret_key'
 
 # 인증 정보 설정
 scope = [
