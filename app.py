@@ -3,14 +3,14 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key'
+app.secret_key = 'your_key'
 
 # 인증 정보 설정
 scope = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive"
 ]
-creds = ServiceAccountCredentials.from_json_keyfile_name("your.json", scope)
+creds = ServiceAccountCredentials.from_json_keyfile_name("your_file.json", scope)
 client = gspread.authorize(creds)
 spreadsheet = client.open("test")
 
